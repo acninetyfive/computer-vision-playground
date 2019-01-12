@@ -227,7 +227,6 @@ class CC_Image:
 		s = time.perf_counter()
 
 		label_counter = 1
-		#img = self.gray_to_binary(self.rgb_to_gray(input_image))
 
 		labels = np.zeros(img.shape)
 		equivalences = {}
@@ -462,7 +461,7 @@ def parse_runtime_args():
 		print_help_message()
 		return 1
 
-	if (not sys.argv[1].endswith(".jpg")):
+	if (not sys.argv[1].endswith(".jpg") and not sys.argv[1].endswith(".bmp")):
 		print("Must enter .jpg file as first argument")
 		return -1
 
@@ -499,4 +498,31 @@ def parse_runtime_args():
 img_counter = 0
 
 runtime_arg_dict = parse_runtime_args()
+'''
+cc_im = CC_Image(sys.argv[1])
 
+img = cc_im.gray_to_binary(cc_im.rgb_to_gray(cc_im.original))
+
+label_counter = 1
+
+labels = np.zeros(img.shape)
+equivalences = {}
+
+for i in range(len(img)):
+	for j in range(len(img[0])):
+		if (img[i][j]):
+			neighbors = cc_im.get_neighbors(labels, i, j, 4)
+			if (neighbors):
+				labels[i][j] = min(neighbors)
+				for n in neighbors:
+					equivalences[n].update(set(neighbors))
+			else:
+				labels[i][j] = label_counter
+				equivalences[label_counter] = set()
+				label_counter += 1
+
+print(equivalences)
+equivalences = cc_im.merge_equivalences(equivalences)
+
+print(equivalences)
+'''
