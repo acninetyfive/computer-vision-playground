@@ -500,24 +500,3 @@ img_counter = 0
 
 runtime_arg_dict = parse_runtime_args()
 
-
-'''
-
-
-
-if (driver == 0):
-	if (len(sys.argv) == 4):
-		rgb_to_ccs_driver(sys.argv[1], sys.argv[2], int(sys.argv[3]))
-	if (len(sys.argv) == 3):
-		rgb_to_ccs_driver(sys.argv[1], sys.argv[2])
-	if (len(sys.argv) == 2):
-		rgb_to_ccs_driver(sys.argv[1])
-
-elif (driver == 1):
-	if (len(sys.argv) == 4):
-		highlight_each_cc_driver(sys.argv[1], sys.argv[2], int(sys.argv[3]))
-	if (len(sys.argv) == 3):
-		highlight_each_cc_driver(sys.argv[1], sys.argv[2])
-	if (len(sys.argv) == 2):
-		highlight_each_cc_driver(sys.argv[1])
-'''
