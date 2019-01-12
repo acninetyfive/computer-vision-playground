@@ -14,7 +14,7 @@ def bfs(node, visited, matrix):
 
 	counter = 0
 	while len(q) > 0:
-		print("bfs loop #: " + str(counter))
+		#print("bfs loop #: " + str(counter))
 		counter += 1
 		n = q.pop(0)
 		#print(n)
@@ -71,7 +71,7 @@ def highlight_cc(cc, matrix, low, high):
 	return hlm
 
 #print(bfs((3,0), visited, set(), test_matrix))
-'''
+
 for x in test_matrix:
 	print(x)
 
@@ -82,4 +82,4 @@ for c in connected_components(test_matrix):
 		print(l)
 	print()
 
-'''
+
