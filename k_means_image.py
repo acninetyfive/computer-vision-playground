@@ -6,7 +6,6 @@ import random
 import time
 import scipy.spatial.distance as sd
 import sys
-import basic_bfs_connected_components as cc
 from copy import deepcopy
 
 
@@ -151,37 +150,6 @@ class K_Means:
 		plt.show()
 		return
 	
-	def show_connected_components(self, n):
-		self.initialize_means(n)
-		print("K =", n)
-		self.points = deepcopy(self.original)
-		self.full_run()
-		self.recolor()
-		result = deepcopy(self.points)
-
-		#print(self.points)
-		ccs = cc.connected_components(self.points)
-
-		rows = math.floor(math.sqrt(len(ccs)+2))
-		cols = math.ceil((len(ccs)+2)/rows)
-		print("number of CC's: " + str(len(ccs)))
-
-		for i in range(len(ccs)):
-			e = ccs[i].pop()
-			ccs[i].add(e) 
-			self.points = cc.highlight_cc(ccs[i], self.points, [0,0,0], result[e[0]][e[1]])
-			plt.subplot(rows, cols, i+1)
-			plt.imshow(self.points)	
-		plt.subplot(rows, cols, len(ccs) + 1)
-		plt.imshow(result)
-		plt.subplot(rows, cols, len(ccs) + 2)
-		plt.imshow(self.original)
-		#plt.subplot(rows, cols, i)
-		#self.points = cc.highlight_cc(ccs[0], self.points, [0,0,0], [255,255,255])
-		#plt.imshow(self.points)
-
-		plt.show()
-		return
 
 
 
@@ -196,9 +164,24 @@ gbw = [[161, 208, 128], [73, 72, 88], [232, 231, 249]]
 
 #km.draw_elbow_graph(2,12)
 
-km.show_n_runs(int(sys.argv[2]))
+#km.show_n_runs(int(sys.argv[2]))
 
-#km.show_connected_components(int(sys.argv[2]))
+i = int(sys.argv[2])
+
+
+km.initialize_means(i)
+print("K =", i)
+km.points = deepcopy(km.original)
+km.full_run()
+km.recolor()
+plt.subplot(1, 2, 1)
+plt.imshow(km.points)		
+plt.subplot(1,2,2)
+plt.imshow(km.original)
+
+plt.show()
+
+
 
 
 

@@ -178,7 +178,7 @@ class CC_Image:
 						if x not in visited:
 							q.append(x)
 				for x in component:
-					equivalences[x] = component
+					equivalences[x] = min(component)
 				component = set()
 
 		if(self.show_timer): print("merge_equivalences:", '%.6f'%(time.perf_counter() - s))
@@ -253,14 +253,10 @@ class CC_Image:
 		t = time.perf_counter()
 
 
-		'''for x in np.argwhere(labels):
-			if equivalences[labels[x[0]][x[1]]]:
-				labels[x[0]][x[1]] = min(equivalences[labels[x[0]][x[1]]])
-		'''
 		for i in range(len(img)):
 			for j in range(len(img[0])):
-				if (labels[i][j] and equivalences[labels[i][j]]):
-					labels[i][j] = min(equivalences[labels[i][j]])
+				if (labels[i][j]):
+					labels[i][j] = equivalences[labels[i][j]]
 
 		if(self.show_timer): print("second pass:", '%.6f'%(time.perf_counter() - t))
 
@@ -498,31 +494,3 @@ def parse_runtime_args():
 img_counter = 0
 
 runtime_arg_dict = parse_runtime_args()
-'''
-cc_im = CC_Image(sys.argv[1])
-
-img = cc_im.gray_to_binary(cc_im.rgb_to_gray(cc_im.original))
-
-label_counter = 1
-
-labels = np.zeros(img.shape)
-equivalences = {}
-
-for i in range(len(img)):
-	for j in range(len(img[0])):
-		if (img[i][j]):
-			neighbors = cc_im.get_neighbors(labels, i, j, 4)
-			if (neighbors):
-				labels[i][j] = min(neighbors)
-				for n in neighbors:
-					equivalences[n].update(set(neighbors))
-			else:
-				labels[i][j] = label_counter
-				equivalences[label_counter] = set()
-				label_counter += 1
-
-print(equivalences)
-equivalences = cc_im.merge_equivalences(equivalences)
-
-print(equivalences)
-'''
