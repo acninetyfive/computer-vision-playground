@@ -258,10 +258,6 @@ def rgb_to_ccs_driver(file, verbose = False, min_size = -1):
 	return
 
 
-
-
-
-
 img_counter = 0
 
 runtime_arg_dict = parse_runtime_args()
